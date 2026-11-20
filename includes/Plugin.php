@@ -239,7 +239,9 @@ class Plugin {
 	 */
 	public function init(): void {
 
-		// Load PHP translations. The plugin is not hosted on WordPress.org, so it cannot rely on automatic loading.
+		// Load PHP translations. WordPress only reads .mo files from WP_LANG_DIR for plugins that are not hosted on
+		// WordPress.org, so the bundled languages folder has to be registered explicitly.
+		// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Needed because this plugin is distributed outside WordPress.org.
 		load_plugin_textdomain( 'updatebee', false, dirname( plugin_basename( UPDATEBEE_FILE ) ) . '/languages' );
 
 		// Initialize tables.
