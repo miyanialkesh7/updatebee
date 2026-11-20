@@ -239,6 +239,9 @@ class Plugin {
 	 */
 	public function init(): void {
 
+		// Load PHP translations. The plugin is not hosted on WordPress.org, so it cannot rely on automatic loading.
+		load_plugin_textdomain( 'updatebee', false, dirname( plugin_basename( UPDATEBEE_FILE ) ) . '/languages' );
+
 		// Initialize tables.
 		Tables::register_table( Table_Plugins::class );
 		Tables::register_table( Table_Themes::class );
