@@ -183,6 +183,16 @@ module.exports = function ( grunt ) {
 				);
 			}
 
+			// Remove files from earlier runs first. A locale whose .po was deleted would otherwise keep its
+			// old .mo and .json files, and they would be shipped in the zip. Only generated files are removed.
+			grunt.file
+				.expand( [
+					path.join( languages, '*.pot' ),
+					path.join( languages, '*.mo' ),
+					path.join( languages, '*.json' ),
+				] )
+				.forEach( ( file ) => grunt.file.delete( file ) );
+
 			const poFiles = grunt.file.expand( path.join( languages, '*.po' ) );
 
 			let hasWpCli = true;
